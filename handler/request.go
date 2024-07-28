@@ -37,7 +37,7 @@ func (r *CreateCourseRequest) CreateCourseValidator() error {
 	return nil
 }
 
-func DeleteCourseValidator(id string) error {
+func ParameterIdCourseValidator(id string) error {
 	if !regexp.MustCompile(`\d`).MatchString(id) {
 		return helpers.ErrParamIsRequired("course_id", "int")
 	}
