@@ -1,6 +1,10 @@
 package handler
 
-import "github.com/isaacmirandacampos/gocourses/helpers"
+import (
+	"fmt"
+
+	"github.com/isaacmirandacampos/gocourses/helpers"
+)
 
 type CreateCourseRequest struct {
 	Name            string `json:"name"`
@@ -11,6 +15,9 @@ type CreateCourseRequest struct {
 }
 
 func (r *CreateCourseRequest) CreateCourseValidator() error {
+	if r.Name == "" && r.Slug == "" && r.Level == "" && r.Description == "" && r.DurationInHours <= 0 {
+		return fmt.Errorf("request body is empty")
+	}
 	if r.Name == "" {
 		return helpers.ErrParamIsRequired("name", "string")
 	}
