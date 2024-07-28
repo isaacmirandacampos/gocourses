@@ -4,6 +4,7 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	"github.com/isaacmirandacampos/gocourses/models"
 )
 
 func CreateCourse(ctx *gin.Context) {
@@ -17,9 +18,18 @@ func CreateCourse(ctx *gin.Context) {
 		return
 	}
 	logger.Debugf("Creating a new course with the following data: %v", request)
-	if err := db.Create(&request).Error; err != nil {
+	course := models.Course{
+		Name:            request.Name,
+		Slug:            request.Slug,
+		Level:           request.Level,
+		Description:     request.Description,
+		DurationInHours: request.DurationInHours,
+	}
+
+	if err := db.Create(&course).Error; err != nil {
 		logger.Errorf("Error creating a new course: %v", err.Error())
 		sendError(ctx, http.StatusInternalServerError, "Error creating a new course")
 		return
 	}
+	sendSuccess(ctx, http.StatusCreated, "create-course", course)
 }
