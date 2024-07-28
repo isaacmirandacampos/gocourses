@@ -9,7 +9,7 @@ import (
 
 func DeleteCourse(ctx *gin.Context) {
 	id := ctx.Param("course_id")
-	if err := ParameterIdCourseValidator(id); err != nil {
+	if err := idCourseParameterValidator(id); err != nil {
 		sendError(ctx, http.StatusBadRequest, err.Error())
 		return
 	}

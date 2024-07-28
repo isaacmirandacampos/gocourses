@@ -7,7 +7,7 @@ import (
 	"github.com/isaacmirandacampos/gocourses/helpers"
 )
 
-type CreateCourseRequest struct {
+type CourseRequest struct {
 	Name            string `json:"name"`
 	Slug            string `json:"slug"`
 	Level           string `json:"level"`
@@ -15,7 +15,7 @@ type CreateCourseRequest struct {
 	DurationInHours int    `json:"duration_in_hours"`
 }
 
-func (r *CreateCourseRequest) CreateCourseValidator() error {
+func (r *CourseRequest) createCourseBodyValidator() error {
 	if r.Name == "" && r.Slug == "" && r.Level == "" && r.Description == "" && r.DurationInHours <= 0 {
 		return fmt.Errorf("request body is empty")
 	}
@@ -37,9 +37,16 @@ func (r *CreateCourseRequest) CreateCourseValidator() error {
 	return nil
 }
 
-func ParameterIdCourseValidator(id string) error {
+func idCourseParameterValidator(id string) error {
 	if !regexp.MustCompile(`\d`).MatchString(id) {
 		return helpers.ErrParamIsRequired("course_id", "int")
 	}
 	return nil
+}
+
+func (r *CourseRequest) updateCourseBodyValidator() error {
+	if r.Name != "" || r.Slug != "" || r.Level != "" || r.Description != "" || r.DurationInHours > 0 {
+		return nil
+	}
+	return fmt.Errorf("at least one valid field must be provided")
 }

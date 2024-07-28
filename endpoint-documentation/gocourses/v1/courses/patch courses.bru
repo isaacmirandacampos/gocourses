@@ -1,0 +1,18 @@
+meta {
+  name: patch courses
+  type: http
+  seq: 2
+}
+
+patch {
+  url: {{url}}/api/v1/courses/6
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "name": "Go language",
+    "slug": "Go language"
+  }
+}

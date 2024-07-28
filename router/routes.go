@@ -20,7 +20,7 @@ func initializeRoutes(router *gin.Engine) {
 
 		v1.DELETE("/courses/:course_id", handler.DeleteCourse)
 
-		v1.PUT("/courses/:course_id", handler.UpdateCourse)
+		v1.PATCH("/courses/:course_id", handler.PatchCourse)
 
 		v1.GET("/courses/:course_id", handler.GetCourse)
 	}

@@ -9,7 +9,7 @@ import (
 
 func GetCourse(ctx *gin.Context) {
 	course_id := ctx.Param("course_id")
-	if err := ParameterIdCourseValidator(course_id); err != nil {
+	if err := idCourseParameterValidator(course_id); err != nil {
 		sendError(ctx, http.StatusBadRequest, err.Error())
 		return
 	}

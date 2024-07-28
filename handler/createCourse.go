@@ -8,9 +8,9 @@ import (
 )
 
 func CreateCourse(ctx *gin.Context) {
-	request := CreateCourseRequest{}
+	request := CourseRequest{}
 	ctx.BindJSON(&request)
-	err := request.CreateCourseValidator()
+	err := request.createCourseBodyValidator()
 
 	if err != nil {
 		logger.Errorf("Error validating create course request: %v", err)
