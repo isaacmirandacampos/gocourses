@@ -6,6 +6,16 @@ meta {
 
 post {
   url: {{url}}/api/v1/courses
-  body: none
+  body: json
   auth: none
+}
+
+body:json {
+  {
+    "name": "Go language",
+    "level": "Begginer",
+    "slug": "go-language",
+    "description": "Learn go language",
+    "duration_in_hours": 20
+  }
 }
