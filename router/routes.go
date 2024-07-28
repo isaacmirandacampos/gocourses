@@ -1,53 +1,26 @@
 package router
 
 import (
-	"net/http"
-	"time"
-
 	"github.com/gin-gonic/gin"
+	"github.com/isaacmirandacampos/gocourses/handler"
 )
 
 func initializeRoutes(router *gin.Engine) {
 	api := router.Group("/api")
 	{
-		api.GET("/health-check", func(ctx *gin.Context) {
-			ctx.JSON(http.StatusOK, gin.H{
-				"status":    "OK",
-				"timestamp": time.Now().UTC(),
-			})
-		})
+		api.GET("/health-check", handler.HealthCheck)
 	}
 
 	v1 := api.Group("/v1")
 	{
-		v1.GET("/courses", func(ctx *gin.Context) {
-			ctx.JSON(200, gin.H{
-				"message": "Hello, World!",
-			})
-		})
+		v1.GET("/courses", handler.ListCourse)
 
-		v1.POST("/courses", func(ctx *gin.Context) {
-			ctx.JSON(200, gin.H{
-				"message": "Hello, World!",
-			})
-		})
+		v1.POST("/courses", handler.CreateCourse)
 
-		v1.DELETE("/courses", func(ctx *gin.Context) {
-			ctx.JSON(200, gin.H{
-				"message": "Hello, World!",
-			})
-		})
+		v1.DELETE("/courses", handler.DeleteCourse)
 
-		v1.PUT("/courses", func(ctx *gin.Context) {
-			ctx.JSON(200, gin.H{
-				"message": "Hello, World!",
-			})
-		})
+		v1.PUT("/courses", handler.UpdateCourse)
 
-		v1.GET("/courses/:course_id", func(ctx *gin.Context) {
-			ctx.JSON(200, gin.H{
-				"message": "Hello, World!",
-			})
-		})
+		v1.GET("/courses/:course_id", handler.GetCourse)
 	}
 }
