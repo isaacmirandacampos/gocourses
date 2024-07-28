@@ -1,7 +1,20 @@
 package handler
 
-import "github.com/gin-gonic/gin"
+import (
+	"fmt"
+
+	"github.com/gin-gonic/gin"
+)
 
 func sendError(ctx *gin.Context, statusCode int, msg string) {
+	ctx.Header("Content-Type", "application/json")
 	ctx.JSON(statusCode, gin.H{"errorCode": statusCode, "message": msg})
+}
+
+func sendSuccess(ctx *gin.Context, statusCode int, op string, data interface{}) {
+	ctx.Header("Content-Type", "application/json")
+	ctx.JSON(statusCode, gin.H{
+		"message": fmt.Sprintf("Operation from handler: %s successful", op),
+		"data":    data,
+	})
 }
