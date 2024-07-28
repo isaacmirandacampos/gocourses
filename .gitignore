@@ -1,0 +1,11 @@
+*.so
+*.exe
+*.dll
+*.pdb
+*.lib
+*.dylib
+
+*.test
+*.out
+
+db/
