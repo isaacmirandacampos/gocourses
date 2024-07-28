@@ -2,6 +2,7 @@ package handler
 
 import (
 	"fmt"
+	"regexp"
 
 	"github.com/isaacmirandacampos/gocourses/helpers"
 )
@@ -32,6 +33,13 @@ func (r *CreateCourseRequest) CreateCourseValidator() error {
 	}
 	if r.DurationInHours <= 0 {
 		return helpers.ErrParamIsRequired("duration_in_hours", "int")
+	}
+	return nil
+}
+
+func DeleteCourseValidator(id string) error {
+	if !regexp.MustCompile(`\d`).MatchString(id) {
+		return helpers.ErrParamIsRequired("course_id", "int")
 	}
 	return nil
 }
